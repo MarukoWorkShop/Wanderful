@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!--
+===========================================================
+  畅庆智能 · 污泥低温干化技术 — 交互宣传页（单文件 HTML）
+  内容源自：畅庆介绍-污泥干化0809.pptx + 畅庆设备核心技术及同行对比.pptx
+  结构说明见各 section 中文注释。企业名称/数据均为客户提供材料中的真实信息。
+  替换提示：搜 “【替换】” 可定位待补图片/视频位（设备图、现场图、完工视频等）。
+===========================================================
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>畅庆智能 · 污泥低温干化技术</title>
+<style>
+  :root{
+    /* 品牌色（提取自客户 LOGO 像素采样，非估色） */
+    --primary:#0E499E;       /* 品牌主深蓝（HANGING / 畅庆 文字像素） */
+    --primary-2:#003374;     /* 深蓝加重（hover / 强标题 / 渐变端） */
+    --primary-glow:#1B6FD4;  /* 渐变中心高光蓝 */
+    --accent:#E08C1F;        /* 品牌动感橙（logo 弧形像素） */
+    --accent-soft:#FFF1DA;   /* 橙色浅底 */
+    --steel:#5A6A82;
+    --ink:#0F1A2E;
+    --bg:#ffffff;
+    --bg-soft:#EEF3FA;
+    --line:#D8E1EC;
+    --radius:14px;
+    --shadow:0 10px 30px rgba(14,73,158,.10);
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+  header.nav{
+    position:fixed;top:0;left:0;right:0;height:60px;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 28px;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center}
+  .brand img{height:34px;width:auto;display:block}
+  .nav-links{display:flex;gap:24px}
+  .nav-links a{color:var(--steel);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent)}
+  .dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px}
+  .dots button{width:11px;height:11px;border-radius:50%;border:2px solid var(--steel);background:transparent;cursor:pointer;padding:0;transition:all .25s}
+  .dots button.active{background:var(--accent);border-color:var(--accent);transform:scale(1.25)}
+  .dots button:hover{border-color:var(--accent)}
+  section{padding:96px 28px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .wrap{max-width:var(--maxw);margin:0 auto;width:100%}
+  .eyebrow{color:var(--accent);font-weight:700;letter-spacing:2px;font-size:13px;text-transform:uppercase;margin-bottom:10px}
+  h2.title{font-size:34px;color:var(--primary);font-weight:800;margin-bottom:14px;line-height:1.25}
+  .sub{color:var(--steel);max-width:680px;margin-bottom:40px;font-size:16px}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+  /* 封面 */
+  #cover{background:radial-gradient(1200px 600px at 70% -10%,var(--primary-glow) 0%,var(--primary) 55%,var(--primary-2) 100%);color:#fff;position:relative;overflow:hidden}
+  #cover::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 2px,transparent 2px 64px);pointer-events:none}
+  #cover .eyebrow{color:#FFD9A3}
+  #cover h1{font-size:clamp(36px,5.6vw,64px);font-weight:800;line-height:1.12;margin-bottom:18px;max-width:840px}
+  #cover h1 b{color:var(--accent)}
+  #cover .slogan{font-size:20px;color:#DDE6F4;max-width:640px;margin-bottom:14px}
+  #cover .subs{font-size:15px;color:#B5C9E5;max-width:640px;margin-bottom:34px}
+  .subcos{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+  .chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);padding:7px 14px;border-radius:30px;font-size:13px;color:#E6EEF8}
+  .btn{display:inline-block;background:var(--accent);color:#1a1206;text-decoration:none;padding:14px 30px;border-radius:40px;font-weight:700;font-size:15px;transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(224,140,31,.40)}
+  .btn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.5);color:#fff;margin-left:12px}
+  .btn.ghost:hover{background:rgba(255,255,255,.1);box-shadow:none}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:#A1B8D6;font-size:13px;letter-spacing:1px}
+  /* 关于畅庆 + 数字 */
+  #about{background:var(--bg-soft)}
+  .lead{font-size:17px;color:var(--ink);max-width:900px;line-height:1.9;margin-bottom:8px}
+  .lead b{color:var(--primary)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);text-align:center}
+  .stat .num{font-size:42px;font-weight:800;color:var(--primary);line-height:1}
+  .stat .num small{font-size:18px;color:var(--accent);font-weight:700}
+  .stat .label{margin-top:10px;color:var(--steel);font-size:14px;font-weight:600}
+  /* 发展历程 */
+  .timeline{position:relative;margin-top:20px;padding-left:8px}
+  .timeline::before{content:"";position:absolute;left:14px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--primary),var(--accent))}
+  .tl-item{position:relative;padding:0 0 26px 46px}
+  .tl-item .yr{position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+  .tl-item h4{font-size:17px;color:var(--primary);margin-bottom:3px}
+  .tl-item p{color:var(--steel);font-size:14px}
+  /* 企业文化 */
+  .culture{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:10px}
+  .cul{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .cul .k{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:1px;margin-bottom:8px}
+  .cul .v{color:var(--ink);font-size:15px;font-weight:600}
+  .cul .vs{color:var(--steel);font-size:14px;margin-top:6px}
+  /* 核心技术 */
+  #tech{background:var(--bg-soft)}
+  .principles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
+  .pr{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border-top:4px solid var(--accent)}
+  .pr h4{color:var(--primary);font-size:17px;margin-bottom:8px}
+  .pr p{color:var(--steel);font-size:14px}
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+  .pain{background:var(--accent-soft);border:1px dashed var(--accent);border-radius:var(--radius);padding:22px}
+  .pain h4{color:var(--primary);font-size:16px;margin-bottom:6px}
+  .pain p{color:var(--steel);font-size:14px}
+  .gen{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+  .g{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .g .n{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:8px}
+  .g h4{color:var(--primary);font-size:16px;margin-bottom:6px}
+  .g p{color:var(--steel);font-size:13px}
+  /* 案例 交互Tab */
+  #cases .tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .tab{padding:11px 18px;border:1.5px solid var(--line);background:#fff;border-radius:40px;cursor:pointer;font-weight:700;font-size:13.5px;color:var(--steel);transition:all .2s}
+  .tab:hover{border-color:var(--accent);color:var(--accent)}
+  .tab.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  .panel{display:none;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+  .panel.active{display:block;animation:fade .4s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .panel .client{font-size:13px;color:var(--accent);font-weight:700;letter-spacing:1px}
+  .panel h3{font-size:23px;color:var(--primary);margin:6px 0 20px}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:8px}
+  .meta .m{background:var(--bg-soft);border-radius:10px;padding:14px 16px}
+  .meta .m .k{font-size:12px;color:var(--steel)}
+  .meta .m .v{font-size:15px;font-weight:700;color:var(--primary);margin-top:3px}
+  .pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px}
+  .pc-block h4{font-size:13px;color:var(--steel);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .pc-block p{color:var(--ink);font-size:15px}
+  .results{margin-top:24px;border-top:1px dashed var(--line);padding-top:20px;display:flex;gap:38px;flex-wrap:wrap}
+  .results .r .v{font-size:28px;font-weight:800;color:var(--accent)}
+  .results .r .k{font-size:13px;color:var(--steel)}
+  /* 案例分布 */
+  .dist{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:24px;align-items:center}
+  .dist .map{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:24px;min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:14px;text-align:center}
+  .dist .info-list{list-style:none}
+  .dist .info-list li{padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);font-size:15px}
+  .dist .info-list li b{color:var(--primary)}
+  /* 制造与服务 */
+  #mfg{background:var(--bg-soft)}
+  .flow{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:10px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 10px;text-align:center;position:relative;box-shadow:var(--shadow)}
+  .step .n{width:30px;height:30px;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-bottom:10px}
+  .step h4{font-size:14px;color:var(--primary);margin-bottom:4px}
+  .step p{font-size:12px;color:var(--steel)}
+  .step:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--accent);font-weight:800;font-size:13px}
+  /* 联系 */
+  #contact{background:radial-gradient(900px 500px at 30% 120%,var(--primary) 0%,var(--primary-2) 70%);color:#fff}
+  #contact h2.title{color:#fff}
+  #contact .sub{color:#DDE6F4}
+  .cta-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .info p{margin-bottom:14px;font-size:16px;color:#DDE6F4}
+  .info b{color:#fff}
+  .form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);padding:26px}
+  .form input,.form textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;margin-bottom:14px;font-size:14px;font-family:inherit}
+  .form input::placeholder,.form textarea::placeholder{color:#A1B8D6}
+  .form button{width:100%;background:var(--accent);color:#1a1206;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer}
+  .form .note{font-size:12px;color:#A1B8D6;margin-top:10px;text-align:center}
+  @media(max-width:880px){
+    .nav-links{display:none}
+    .stats,.principles,.gen,.culture{grid-template-columns:repeat(2,1fr)}
+    .pains{grid-template-columns:1fr}
+    .meta{grid-template-columns:1fr}
+    .pc-grid,.cta-grid,.dist{grid-template-columns:1fr}
+    .flow{grid-template-columns:repeat(2,1fr)}
+    .step:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-14px;transform:translateX(50%)}
+    .results{gap:22px}
+    h2.title{font-size:28px}
+  }
+  /* 宏观行业 */
+  #industry{background:var(--bg-soft)}
+  .imperative{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:8px}
+  .imp{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+  .imp h4{color:var(--primary);font-size:17px;margin-bottom:8px}
+  .imp p{color:var(--steel);font-size:14.5px;line-height:1.8}
+  .imp .big{font-size:26px;font-weight:800;color:var(--primary);line-height:1.1}
+  .imp .big small{font-size:14px;color:var(--accent);font-weight:700}
+  .urgency{margin-top:28px;background:linear-gradient(120deg,var(--primary),var(--primary-2));border-radius:var(--radius);padding:30px 34px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+  .urgency .ut{font-size:20px;font-weight:800;max-width:560px;line-height:1.5}
+  .urgency .ut span{color:var(--accent)}
+  .urgency .uc{text-align:center}
+  .urgency .uc .n{font-size:34px;font-weight:800;color:var(--accent)}
+  .urgency .uc .k{font-size:13px;color:#DDE6F4}
+  .must{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+  .must .m{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);text-align:center}
+  .must .m .ico{font-size:26px;margin-bottom:10px}
+  .must .m h4{color:var(--primary);font-size:16px;margin-bottom:6px}
+  .must .m p{color:var(--steel);font-size:13.5px}
+  @media(max-width:880px){.imperative,.must{grid-template-columns:1fr}}
+  .dist .map{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;height:400px}
+  .dist .map-legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:14px;font-size:13px;color:var(--steel)}
+  .dist .map-legend .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--primary);margin-right:6px;vertical-align:-1px}
+  .dist .map-legend .dot.big{background:var(--accent);width:14px;height:14px}
+  .dist .map-legend .hint{width:100%;color:var(--steel);font-size:12px;margin-top:2px}
+  /* 工艺流程 */
+  #process{background:var(--bg-soft)}
+  .flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+  .flow-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);text-align:center;
+    opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+  .flow-card.in{opacity:1;transform:none}
+  .flow-card.full{grid-column:1 / -1}
+  .flow-card img{width:100%;height:auto;border-radius:8px;display:block;background:#fafbfc}
+  .flow-card .cap{margin-top:14px;font-size:15px;color:var(--primary);font-weight:800}
+  .flow-card .desc{font-size:12.5px;color:var(--steel);margin-top:5px}
+  /* 客户背书 */
+  #clients{background:#fff}
+  .logo-frame{margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .logo-frame img{width:100%;height:auto;display:block;border-radius:8px}
+  .intl-strip{margin-top:30px}
+  .intl-strip h4{color:var(--primary);font-size:16px;margin-bottom:18px;text-align:center;letter-spacing:1px}
+  .intl-wall{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .intl-wall .lg{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:20px 14px;display:flex;align-items:center;justify-content:center;
+    opacity:0;transform:translateY(22px) scale(.96);transition:opacity .5s ease,transform .5s ease,box-shadow .3s}
+  .intl-wall .lg.in{opacity:1;transform:none}
+  .intl-wall .lg:hover{box-shadow:var(--shadow);transform:translateY(-5px);border-color:var(--primary)}
+  .intl-wall .lg img{max-width:100%;max-height:52px;width:auto;height:auto;object-fit:contain}
+  @media(max-width:880px){
+    .flow-grid{grid-template-columns:1fr}
+    .intl-wall{grid-template-columns:repeat(3,1fr)}
+  }
+  /* 用户视角 · 三笔账 */
+  #accounts{background:#fff}
+  .accounts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}
+  .acct{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);border-top:4px solid var(--primary);display:flex;flex-direction:column}
+  .acct .q{font-size:15px;color:var(--primary);font-weight:700;padding-bottom:14px;border-bottom:1px dashed var(--line);margin-bottom:16px;line-height:1.55}
+  .acct .q::before{content:"客户问：";color:var(--accent);margin-right:2px}
+  .acct h4{color:var(--steel);font-size:12px;letter-spacing:2px;margin-bottom:8px;font-weight:700}
+  .acct .calc{background:var(--bg-soft);padding:14px 16px;border-radius:10px;font-size:13px;color:var(--steel);margin-bottom:14px;line-height:1.85}
+  .acct .calc b{color:var(--primary);font-weight:700}
+  .acct .ref{font-size:13.5px;color:var(--ink);line-height:1.75;margin-top:auto}
+  .acct .ref .ref-head{display:block;color:var(--primary);font-weight:800;margin-bottom:6px;font-size:13px;letter-spacing:1px}
+  .acct .ref b{color:var(--primary)}
+  @media(max-width:880px){.accounts{grid-template-columns:1fr}}
+</style>
+<!-- 地图合规：腾讯地图 GL JS。部署前请填入你自己的 key 与 SK（腾讯位置服务控制台免费申请） -->
+<script>window._TMapSecurityConfig={securityJsCode:'YOUR_TMAP_SK'};</script>
+<script src="https://map.qq.com/api/gljs?v=1.exp&key=YOUR_TMAP_KEY"></script>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="nav">
+  <a href="#cover" class="brand"><img src="assets/logo_changqing.png" alt="畅庆智能 CHANGQING"></a>
+  <nav class="nav-links">
+    <a href="#cover">首页</a>
+    <a href="#about">关于畅庆</a>
+    <a href="#industry">宏观行业</a>
+    <a href="#accounts">三笔账</a>
+    <a href="#tech">核心技术</a>
+    <a href="#process">工艺流程</a>
+    <a href="#cases">客户案例</a>
+    <a href="#clients">客户背书</a>
+    <a href="#mfg">制造与服务</a>
+    <a href="#contact">合作联系</a>
+  </nav>
+</header>
+
+<div class="dots" id="dots"></div>
+
+<!-- 1. 封面 -->
+<section id="cover">
+  <div class="wrap">
+    <div class="eyebrow">LOW-TEMPERATURE SLUDGE DRYING · SINCE 2016</div>
+    <h1>以<b>低温干化</b>技术<br>实现污泥“四化”减量</h1>
+    <p class="slogan">专注固、液、气"三废"减量化技术与装备的研发与智造，为客户提供高效、节能、安全、环保的整体解决方案。</p>
+    <p class="subs">上海畅庆新工程科技有限公司 · 山东畅庆智能装备科技有限公司 · 苏州畅庆智能科技有限公司</p>
+    <div class="subcos">
+      <span class="chip">热泵干化</span><span class="chip">余热干化</span><span class="chip">MVR蒸发</span>
+      <span class="chip">非标定制</span><span class="chip">190+ 成功案例</span>
+    </div>
+    <div>
+      <a href="#cases" class="btn">查看客户案例</a>
+      <a href="#contact" class="btn ghost">预约工厂参观</a>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ 滚动 / 按 ↓ 翻页</div>
+</section>
+
+<!-- 2. 关于畅庆 -->
+<section id="about">
+  <div class="wrap reveal">
+    <div class="eyebrow">ABOUT CHANGQING</div>
+    <h2 class="title">关于畅庆：污染减量领域的中坚力量</h2>
+    <p class="lead">畅庆智能科技有限公司 <b>2016 年 3 月</b>成立于上海，依托华东理工大学与西安交通大学的技术支持，专注于固、液、气"三废"减量化技术和装备的研发与智造。创始人拥有 15 年以上环保行业经验，员工 80 余人，集结各领域技术专才，将热泵、干燥、蒸发、自动化等技术跨界融合、自主创新。公司先后成立山东畅庆智能装备科技有限公司生产基地及上海畅庆新工程科技有限公司，拥有建筑装饰装修、机电安装贰级资质、自主知识产权发明专利及多项实用新型专利认证。核心产品低温干化机已形成 <b>3 个系列、27 种规格</b>，已成功服务 190+ 家企业，覆盖制药、化工、市政、电镀、石油等多个行业。</p>
+    <div class="stats">
+      <div class="stat"><div class="num" data-target="2016">0</div><div class="label">成立于上海</div></div>
+      <div class="stat"><div class="num" data-target="190" data-suffix="+">0</div><div class="label">成功案例 家</div></div>
+      <div class="stat"><div class="num" data-target="80" data-suffix="+">0</div><div class="label">员工 人</div></div>
+      <div class="stat"><div class="num" data-target="200" data-suffix="+">0</div><div class="label">已售设备 套</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.5 宏观行业板块 -->
+<section id="industry">
+  <div class="wrap reveal">
+    <div class="eyebrow">WHY NOW · INDUSTRY IMPERATIVE</div>
+    <h2 class="title">宏观行业：污泥减量已从"选择题"变为"必答题"</h2>
+    <p class="sub">在政策强约束与监管常态化的双重驱动下，污泥规范处置不再是企业的可选项，而是合规生存与降本增效的刚性需求。</p>
+
+    <div class="imperative">
+      <div class="imp">
+        <h4>政策强制减量 · 《固废十条》</h4>
+        <p>国家明确大宗固废综合利用目标：到 <span class="big">2030<small> 年</small></span> 综合利用量达 <span class="big">45<small> 亿吨</small></span>、再生资源 <span class="big">5.1<small> 亿吨</small></span>。"减量 = 政绩、资源化 = 加分项"，污泥减量已纳入硬性考核逻辑。</p>
+      </div>
+      <div class="imp">
+        <h4>监管史上最严 · 《生态环境法典》</h4>
+        <p>自 8 月 15 日起正式实施，整合 10 部环保法律。确立<span class="big">按日连续处罚</span>、<span class="big">双罚制</span>（罚企业 + 罚负责人）、<span class="big">举证责任倒置</span>（企业自证清白）三大机制——违法成本陡增，合规不再是"做好做坏"的问题，而是"做与不做"的底线。</p>
+      </div>
+    </div>
+
+    <div class="urgency">
+      <div class="ut">当前处于<span> 政策红利期 + 督察空档期 </span>叠加窗口：审批更快、补贴更易申请、环保风险最低。窗口过后，价格上行、工期排满、验收趋严——<span>早处置，早安心、早省钱。</span></div>
+      <div class="uc"><div class="n">75–85%</div><div class="k">污泥体积减量空间</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.7 用户视角 · 三笔账（宏观行业下一页，从用户关心的问题出发） -->
+<section id="accounts">
+  <div class="wrap reveal">
+    <div class="eyebrow">USER PERSPECTIVE · CALCULATE BEFORE YOU DECIDE</div>
+    <h2 class="title">三笔账：算清楚再决定</h2>
+    <p class="sub">在政策强约束与监管常态化的当下，决策前的核心不是"选哪一家"，而是"这笔账到底算不算得过来"。下面用真实工况参数，把每一笔账的算式与参考结果摆给您，您可代入自家数据复核。</p>
+    <div class="accounts">
+      <div class="acct">
+        <div class="q">买这套设备 + 后续电费人工，到底几年能回本？</div>
+        <h4>怎么算</h4>
+        <div class="calc">
+          · 湿污泥含水率 <b>80%</b> → 干化至 <b>30%</b>，污泥量降至 <b>0.286M</b>（体积减重 ~65–75%）<br>
+          · 外运处置费 <b>600–800 元/吨</b> → 协同处置 <b>200–300 元/吨</b><br>
+          · 每吨湿泥节省 ≈ <b>0.286 × (600 − 200) ≈ 115 元</b><br>
+          · 扣除电费（热泵低温 <b>50–80 kWh/吨水</b>）+ 人工 + 维护
+        </div>
+        <div class="ref"><span class="ref-head">参考结果</span>年产 1 万吨湿污泥的工况：年净省 <b>¥300–450 万</b>；设备投资通常 <b>3–5 年回本</b>，部分高处置费地区可在 2 年以内。</div>
+      </div>
+      <div class="acct">
+        <div class="q">低温干化真不会爆？监管来查能不能过关？</div>
+        <h4>怎么算</h4>
+        <div class="calc">
+          · 低温运行 <b>&lt;80℃</b>，远低于多数污泥粉尘云引燃温度（MIE 通常 <b>&gt;300℃</b>），无爆炸/自燃物理条件<br>
+          · 全封闭 + 智能监控 + 自动台账 vs 传统露天/高温干化的环境敞口<br>
+          · 《生态环境法典》<b>按日连续处罚</b> + <b>举证责任倒置</b>：单笔罚单可达 <b>¥20–100 万</b>
+        </div>
+        <div class="ref"><span class="ref-head">参考结果</span>一次环保事故的"罚款 + 停产 + 品牌损失" ≈ <b>数台干化机的全投资</b>。低温 + 智能台账的组合，是把这类尾部风险降至接近零的工程化手段。</div>
+      </div>
+      <div class="acct">
+        <div class="q">干化后的污泥是不是还要倒贴钱？能卖吗？</div>
+        <h4>怎么算</h4>
+        <div class="calc">
+          · 干化污泥低位热值 <b>1500–2500 kcal/kg</b>（接近褐煤）<br>
+          · 电厂协同焚烧收购价 <b>100–300 元/吨</b>；水泥窑协同 / 制砖 / 陶粒亦可消纳<br>
+          · 部分省份对资源化处置有 <b>30–80 元/吨</b> 政策补贴
+        </div>
+        <div class="ref"><span class="ref-head">参考结果</span>年产 1 万吨干化污泥：资源化收入 <b>¥100–300 万/年</b>；叠加《固废十条》资源化补贴与碳减排积分（CCER 重启后污泥处置可申报），综合收益可显著覆盖处置成本，从"成本项"转为"利润项"。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 发展历程 + 企业文化 -->
+<section id="history">
+  <div class="wrap reveal">
+    <div class="eyebrow">MILESTONES & CULTURE</div>
+    <h2 class="title">发展历程与企业文化</h2>
+    <div class="timeline" style="max-width:760px">
+      <div class="tl-item"><span class="yr">16</span><h4>2016 · 成立于上海</h4><p>进入热泵干化领域</p></div>
+      <div class="tl-item"><span class="yr">17</span><h4>2017 · 余热干化</h4><p>销售过千万</p></div>
+      <div class="tl-item"><span class="yr">18</span><h4>2018 · 太仓生产基地</h4><p>产能落地</p></div>
+      <div class="tl-item"><span class="yr">19</span><h4>2019 · 规模企业</h4><p>规模化运营</p></div>
+      <div class="tl-item"><span class="yr">20</span><h4>2020 · 高新技术企业</h4><p>案例突破 100</p></div>
+      <div class="tl-item"><span class="yr">21</span><h4>2021 · MVR 蒸发 / 热泵蒸发</h4><p>技术矩阵扩展</p></div>
+      <div class="tl-item"><span class="yr">22</span><h4>2022 · 落户济宁</h4><p>成立山东畅庆生产基地，上海畅庆新工程再次腾飞</p></div>
+    </div>
+    <div class="culture" style="margin-top:36px">
+      <div class="cul"><div class="k">定位</div><div class="v">"三废"减量化技术</div><div class="vs">研发与智造</div></div>
+      <div class="cul"><div class="k">理念</div><div class="v">诚信 · 敬业</div><div class="vs">务实 · 创新</div></div>
+      <div class="cul"><div class="k">目标</div><div class="v">让环保不再头痛</div><div class="vs">让用户不必心疼</div></div>
+      <div class="cul"><div class="k">使命</div><div class="v">成就客户 · 品牌 · 员工</div><div class="vs">诚信铸就品质</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 核心技术 -->
+<section id="tech">
+  <div class="wrap reveal">
+    <div class="eyebrow">CORE TECHNOLOGY</div>
+    <h2 class="title">核心技术：低温干化如何破局</h2>
+    <p class="sub">污泥处置遵循"四化"原则，而传统干化长期受制于能耗、恶臭与安全隐患——这正是畅庆技术的切入点。</p>
+    <div class="principles">
+      <div class="pr"><h4>无害化</h4><p>处理使其不对环境造成二次污染，不对人体健康产生危害</p></div>
+      <div class="pr"><h4>减量化</h4><p>减少污泥的重量和体积</p></div>
+      <div class="pr"><h4>稳定化</h4><p>降解易腐有机物、杀死病原菌</p></div>
+      <div class="pr"><h4>资源化</h4><p>降低碳排放、回收有使用价值的物质与资源</p></div>
+    </div>
+    <div class="pains">
+      <div class="pain"><h4>传热差 · 能耗高</h4><p>传统干化热能利用率低，运行成本居高不下</p></div>
+      <div class="pain"><h4>加热产生恶臭</h4><p>高温干化伴随恶臭气体，环保不达标</p></div>
+      <div class="pain"><h4>粉尘爆炸风险</h4><p>干化后粉末状物料存在粉尘爆炸危险</p></div>
+    </div>
+    <p class="sub" style="margin-top:30px;margin-bottom:8px">核心技术与迭代优势</p>
+    <div class="gen">
+      <div class="g"><div class="n">工作原理</div><h4>热泵式 / 余热带式机</h4><p>低温闭环干化，余热回收，能耗显著低于传统热风干化</p></div>
+      <div class="g"><div class="n">三代机结构</div><h4>铰链式门板 · 独立风道</h4><p>PP 三层网带，维护便捷、风路隔离、干化更均匀</p></div>
+      <div class="g"><div class="n">自动清洁</div><h4>三清灰 + 自动清洗</h4><p>过滤网自动清灰、蒸发器自动清洗、底部自动清灰</p></div>
+      <div class="g"><div class="n">产品矩阵</div><h4>3 系列 27 规格</h4><p>非标定制，覆盖化工、市政、制药、电子等多行业</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4.5 工艺流程 -->
+<section id="process">
+  <div class="wrap reveal">
+    <div class="eyebrow">PROCESS FLOW</div>
+    <h2 class="title">工艺流程：低温干化系统如何运转</h2>
+    <p class="sub">从污泥进料到干料出料的完整闭环——余热回收、低温除湿、全封闭运行，安全环保。以下流程图均取自畅庆设备技术样册。</p>
+    <div class="flow-grid">
+      <div class="flow-card full">
+        <img src="assets/flow_main_overview_notitle.png" alt="污泥低温干化系统主工艺流程">
+        <div class="cap">污泥低温干化系统 · 主工艺流程</div>
+        <div class="desc">污水 → 浓缩池 → 机械脱水 → 畅庆低温干化 → 堆肥 / 焚烧 / 碳化 / 建材协同处置</div>
+      </div>
+      <div class="flow-card">
+        <img src="assets/flow_principle_dehumidify.png" alt="除湿干化原理">
+        <div class="cap">除湿干化原理</div>
+        <div class="desc">湿空气冷凝除湿，循环热风低温干化污泥</div>
+      </div>
+      <div class="flow-card">
+        <img src="assets/flow_principle_heatpump.png" alt="除湿热泵原理">
+        <div class="cap">除湿热泵原理</div>
+        <div class="desc">热泵回收余热，能效比显著提升</div>
+      </div>
+      <div class="flow-card">
+        <img src="assets/flow_belt_dryer.png" alt="带式干化机工作流程">
+        <div class="cap">带式干化机工作流程</div>
+        <div class="desc">网带连续输送，多级温区均匀干化</div>
+      </div>
+      <div class="flow-card">
+        <img src="assets/flow_wasteheat_dryer.png" alt="余热干化机工作流程">
+        <div class="cap">余热干化机工作流程</div>
+        <div class="desc">利用工艺余热，近零额外能耗干化</div>
+      </div>
+      <div class="flow-card">
+        <img src="assets/flow_box_dryer.png" alt="箱式干化机工作流程">
+        <div class="cap">箱式干化机工作流程</div>
+        <div class="desc">批次式小处理量，灵活部署</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 客户案例（交互 Tab） -->
+<section id="cases">
+  <div class="wrap reveal">
+    <div class="eyebrow">CASE STUDIES</div>
+    <h2 class="title">客户案例：从痛点到达标减量</h2>
+    <p class="sub">点击切换不同行业的真实项目，查看污泥类型、选型与减量成果。</p>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-case="c1">安徽昊源化工</button>
+      <button class="tab" data-case="c2">友达光电</button>
+      <button class="tab" data-case="c3">绥化供排水</button>
+      <button class="tab" data-case="c4">上海老港</button>
+      <button class="tab" data-case="c5">常熟制药</button>
+      <button class="tab" data-case="c6">台州制药</button>
+      <button class="tab" data-case="c7">案例分布</button>
+    </div>
+
+    <div class="panel active" id="c1">
+      <div class="client">CASE 01 · 化工污泥</div>
+      <h3>安徽昊源化工集团（一期 / 二期）</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">化工污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">板框脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2022 / 2023</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">60% → 干料 30%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">一期 75T/天 · 二期 130T/天</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">一期 CQYD40000×1 · 二期 CQYD35000×2</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>板框脱水后低温干化，厂区提供热水作为辅助热源，进一步降低电耗。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>一期每天减重 32T，二期每天减重 56T；每吨湿泥干化成本约 70KWh（电）+ 厂区热水。</p></div>
+      </div>
+      <div class="results">
+        <div class="r"><div class="v">88T/天</div><div class="k">两期合计减重</div></div>
+        <div class="r"><div class="v">60→30%</div><div class="k">含水率</div></div>
+        <div class="r"><div class="v">70KWh</div><div class="k">每吨电耗</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c2">
+      <div class="client">CASE 02 · 半导体污泥</div>
+      <h3>友达光电（昆山）有限公司</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">半导体污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">板框脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2024</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">55% → 干料 15%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">30 T/天</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">一期 CQD19200SL</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>高附加值电子污泥深度干化，干料含水率降至 15%，显著压缩处置体积。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>每天减重 14T；每吨湿泥干化成本约 180KWh（电）。</p></div>
+      </div>
+      <div class="results">
+        <div class="r"><div class="v">14T/天</div><div class="k">减重</div></div>
+        <div class="r"><div class="v">55→15%</div><div class="k">含水率</div></div>
+        <div class="r"><div class="v">CQD19200SL</div><div class="k">机型</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c3">
+      <div class="client">CASE 03 · 市政污泥</div>
+      <h3>绥化市供排水有限公司（一期 / 二期）</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">市政污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">带式脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2020</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">80% → 干料 30%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">一期 120T/D · 二期 180T/D</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">一期 CQYD45000×2 · 二期 CQYD45000×3</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>高含水率市政污泥规模化干化，蒸汽辅助热源保障连续运行。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>两期合计每天减重 214T；每吨湿泥干化成本约 70KWh（电）+ 0.65t 蒸汽。</p></div>
+      </div>
+      <div class="results">
+        <div class="r"><div class="v">214T/天</div><div class="k">合计减重</div></div>
+        <div class="r"><div class="v">80→30%</div><div class="k">含水率</div></div>
+        <div class="r"><div class="v">300T/D</div><div class="k">总处理量</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c4">
+      <div class="client">CASE 04 · 市政污泥</div>
+      <h3>上海老港废弃物处置中心</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">市政污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">板框脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2021</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">60% → 干料 30%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">140 T/天</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">CQYD35000×2</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>大型处置中心配套干化，蒸汽辅助热源，稳定承接城市污泥。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>每天减重 60T；每吨湿泥干化成本约 70KWh（电）+ 0.55t 蒸汽。</p></div>
+      </div>
+      <div class="results">
+        <div class="r"><div class="v">60T/天</div><div class="k">减重</div></div>
+        <div class="r"><div class="v">60→30%</div><div class="k">含水率</div></div>
+        <div class="r"><div class="v">140T/D</div><div class="k">处理量</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c5">
+      <div class="client">CASE 05 · 制药污泥</div>
+      <h3>江苏常熟某制药企业</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">制药污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">离心脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2024 年 3 月</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">85% → 干料 40%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">5 T/天</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">CQD4800SL</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>高含水率制药污泥小批量深度干化，SL 系列紧凑机型适配。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>针对污泥特性定制，保障药企合规处置与降本。</p></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c6">
+      <div class="client">CASE 06 · 制药污泥</div>
+      <h3>浙江台州某制药企业</h3>
+      <div class="meta">
+        <div class="m"><div class="k">污泥类型</div><div class="v">制药污泥</div></div>
+        <div class="m"><div class="k">前端脱水</div><div class="v">叠螺脱水机</div></div>
+        <div class="m"><div class="k">施工时间</div><div class="v">2024 年 3 月</div></div>
+        <div class="m"><div class="k">湿料含水率</div><div class="v">83% → 干料 30%</div></div>
+        <div class="m"><div class="k">处理湿泥量</div><div class="v">2.5 T/天</div></div>
+        <div class="m"><div class="k">选型</div><div class="v">CQD2400SL</div></div>
+      </div>
+      <div class="pc-grid">
+        <div class="pc-block"><h4>方案要点</h4><p>更小处理量制药场景，小型 SL 机组灵活部署。</p></div>
+        <div class="pc-block"><h4>运行成果</h4><p>叠螺出料直接干化，含水率由 83% 降至 30%。</p></div>
+      </div>
+    </div>
+
+    <div class="panel" id="c7">
+      <div class="client">CASE MAP · 案例分布</div>
+      <h3>已销售设备 200+ 套，覆盖全国及海外</h3>
+      <div class="dist">
+        <div class="map"><div id="caseMap" style="width:100%;height:100%"></div></div>
+      <div class="map-legend">
+        <span><span class="dot"></span>已售设备省份</span>
+        <span><span class="dot big"></span>海外项目（印度 / 韩国 / 泰国 / 马来西亚）</span>
+        <span class="hint">设备已分布于 15 省、3 直辖市，及印度、韩国、泰国、马来西亚。</span>
+      </div>
+        <ul class="info-list">
+          <li><b>国内：</b>海南、黑龙江、吉林、辽宁、河北、山东、福建、江西、安徽、湖北、湖南、广东、广西、上海、河南、山西、内蒙古、陕西、宁夏、甘肃、青海、四川、贵州、云南、西藏、新疆、江苏、浙江、北京、台湾、重庆等</li>
+          <li><b>海外：</b>印度、韩国、泰国、马来西亚</li>
+          <li><b>行业：</b>市政、医药、煤化工、化工、造纸、电子、养殖、汽车、新能源、食品等</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5.5 客户背书 -->
+<section id="clients">
+  <div class="wrap reveal">
+    <div class="eyebrow">TRUSTED BY</div>
+    <h2 class="title">客户背书：值得信赖的合作伙伴</h2>
+    <p class="sub">设备已服务于化工、制药、食品饮料、电子、市政等行业的国内外头部企业，累计 190+ 成功案例。</p>
+    <div class="logo-frame">
+      <img src="assets/customer_logos_all.png" alt="畅庆合作伙伴 LOGO 墙">
+    </div>
+    <div class="intl-strip">
+      <h4>国际核心重点客户</h4>
+      <div class="intl-wall">
+        <div class="lg"><img src="assets/logo_lubrizol.png" alt="Lubrizol"></div>
+        <div class="lg"><img src="assets/logo_siemens.png" alt="Siemens"></div>
+        <div class="lg"><img src="assets/logo_pepsico.png" alt="PepsiCo"></div>
+        <div class="lg"><img src="assets/logo_auo_optronics.png" alt="AUO 友达光电"></div>
+        <div class="lg"><img src="assets/logo_dsm.png" alt="DSM"></div>
+        <div class="lg"><img src="assets/logo_sk_chemicals.png" alt="SK chemicals"></div>
+        <div class="lg"><img src="assets/logo_fosun_pharma.png" alt="Fosun Pharma 复星医药"></div>
+        <div class="lg"><img src="assets/logo_baowu.png" alt="Baowu 宝武"></div>
+        <div class="lg"><img src="assets/logo_hengli.png" alt="Hengli 恒力"></div>
+        <div class="lg"><img src="assets/logo_kohler.png" alt="Kohler 科勒"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 制造与服务 -->
+<section id="mfg">
+  <div class="wrap reveal">
+    <div class="eyebrow">MANUFACTURING & SERVICE</div>
+    <h2 class="title">制造基地与全流程服务</h2>
+    <p class="sub">山东畅庆智能装备科技有限公司生产基地 + 上海畅庆新工程科技有限公司，提供从取样到售后的闭环服务。</p>
+    <div class="flow">
+      <div class="step"><div class="n">1</div><h4>技术咨询</h4><p>需求对接</p></div>
+      <div class="step"><div class="n">2</div><h4>取样试验</h4><p>泥样测试</p></div>
+      <div class="step"><div class="n">3</div><h4>现场勘察</h4><p>工况调研</p></div>
+      <div class="step"><div class="n">4</div><h4>方案设计</h4><p>布置设计</p></div>
+      <div class="step"><div class="n">5</div><h4>3D 建模</h4><p>可视化</p></div>
+      <div class="step"><div class="n">6</div><h4>非标定制</h4><p>按需制造</p></div>
+      <div class="step"><div class="n">7</div><h4>安装调试</h4><p>系统交付</p></div>
+      <div class="step"><div class="n">8</div><h4>售后启动</h4><p>长期护航</p></div>
+    </div>
+    <p class="sub" style="margin-top:26px;margin-bottom:0">资质：建筑装饰装修、机电安装贰级资质 · 自主知识产权发明专利 · 多项实用新型专利认证 · 高新技术企业。</p>
+  </div>
+</section>
+
+<!-- 7. 合作联系 -->
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="eyebrow">GET IN TOUCH</div>
+    <h2 class="title">把您的污泥减量需求，交给畅庆</h2>
+    <p class="sub">无论是取样试验、非标定制还是规模部署，欢迎预约工厂参观与工程对接。</p>
+    <div class="cta-grid">
+      <div class="info">
+        <p><b>官网：</b>www.cqhbtc.com</p>
+        <p><b>上海：</b>上海畅庆新工程科技有限公司</p>
+        <p><b>山东：</b>山东畅庆智能装备科技有限公司（生产基地）</p>
+        <p><b>苏州：</b>苏州畅庆智能科技有限公司</p>
+      </div>
+      <form class="form" onsubmit="return false">
+        <input type="text" placeholder="您的姓名">
+        <input type="text" placeholder="公司名称">
+        <input type="email" placeholder="邮箱">
+        <textarea rows="3" placeholder="污泥类型 / 处理量 / 含水率等需求"></textarea>
+        <button type="submit">提交咨询</button>
+        <div class="note">演示表单，提交逻辑需接入后端或表单服务</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+const progress=document.getElementById('progress');
+const sections=[...document.querySelectorAll('section')];
+const dotsBox=document.getElementById('dots');
+sections.forEach(()=>{
+  const b=document.createElement('button');
+  b.addEventListener('click',()=>{const i=dots.indexOf(b);sections[i].scrollIntoView({behavior:'smooth'});});
+  dotsBox.appendChild(b);
+});
+const dots=[...dotsBox.children];
+const navLinks=[...document.querySelectorAll('.nav-links a')];
+
+function onScroll(){
+  const st=window.scrollY;
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  progress.style.width=(h>0?st/h*100:0)+'%';
+  let active=0;
+  sections.forEach((s,i)=>{if(s.getBoundingClientRect().top<=window.innerHeight*0.4)active=i;});
+  dots.forEach((d,i)=>d.classList.toggle('active',i===active));
+  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+sections[active].id));
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      if(e.target.id==='about'||(e.target.closest&&e.target.closest('#about'))) runCounters();
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* 工艺流程 / 客户背书 进场动画（staggered fade-up，为后续简易流程图动画预留 data-anim 钩子） */
+const animObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const items=e.target.querySelectorAll('.flow-card,.lg');
+      items.forEach((it,i)=>setTimeout(()=>it.classList.add('in'), i*90));
+      animObs.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.flow-grid,.intl-wall').forEach(el=>animObs.observe(el));
+
+let counted=false;
+function runCounters(){
+  if(counted)return;counted=true;
+  document.querySelectorAll('.stat .num').forEach(el=>{
+    const target=parseFloat(el.dataset.target);
+    const suffix=el.dataset.suffix||'';
+    const dur=1400,t0=performance.now();
+    function step(t){
+      const p=Math.min((t-t0)/dur,1);
+      const val=target*(1-Math.pow(1-p,3));
+      el.textContent=Math.round(val)+suffix;
+      if(p<1)requestAnimationFrame(step);else el.textContent=target+suffix;
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+const tabs=document.getElementById('tabs');
+tabs.addEventListener('click',e=>{
+  const btn=e.target.closest('.tab');if(!btn)return;
+  const id=btn.dataset.case;
+  tabs.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===btn));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));
+});
+
+/* ---------- 案例分布地图（腾讯地图 GL JS，合规底图） ---------- */
+const caseProvinces=[
+  {name:'北京',lat:39.90,lng:116.40},{name:'上海',lat:31.23,lng:121.47},{name:'重庆',lat:29.56,lng:106.55},
+  {name:'河北',lat:38.04,lng:114.51},{name:'山西',lat:37.87,lng:112.55},{name:'内蒙古',lat:40.82,lng:111.75},
+  {name:'辽宁',lat:41.80,lng:123.43},{name:'吉林',lat:43.90,lng:125.32},{name:'黑龙江',lat:45.75,lng:126.64},
+  {name:'江苏',lat:32.06,lng:118.80},{name:'浙江',lat:30.27,lng:120.15},{name:'安徽',lat:31.86,lng:117.28},
+  {name:'福建',lat:26.08,lng:119.30},{name:'江西',lat:28.68,lng:115.89},{name:'山东',lat:36.67,lng:117.00},
+  {name:'河南',lat:34.76,lng:113.65},{name:'湖北',lat:30.59,lng:114.30},{name:'湖南',lat:28.23,lng:112.94},
+  {name:'广东',lat:23.13,lng:113.27},{name:'广西',lat:22.82,lng:108.37},{name:'海南',lat:20.04,lng:110.20},
+  {name:'四川',lat:30.66,lng:104.07},{name:'贵州',lat:26.65,lng:106.63},{name:'云南',lat:25.05,lng:102.71},
+  {name:'陕西',lat:34.27,lng:108.95},{name:'甘肃',lat:36.06,lng:103.83},{name:'青海',lat:36.62,lng:101.78},
+  {name:'宁夏',lat:38.47,lng:106.27},{name:'新疆',lat:43.79,lng:87.62},{name:'西藏',lat:29.65,lng:91.13}
+];
+const caseOverseas=[
+  {name:'印度',lat:28.61,lng:77.21},{name:'韩国',lat:37.57,lng:126.98},
+  {name:'泰国',lat:13.75,lng:100.50},{name:'马来西亚',lat:3.14,lng:101.69}
+];
+let mapInited=false;
+function initCaseMap(){
+  if(mapInited||typeof TMap==='undefined')return;
+  mapInited=true;
+  const map=new TMap.Map('caseMap',{zoom:4,center:new TMap.LatLng(35.0,108.0)});
+  const dotSVG=(c)=>'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><circle cx="7" cy="7" r="6" fill="'+c+'" stroke="#fff" stroke-width="1.5"/></svg>');
+  const geomsP=caseProvinces.map((p,i)=>({id:'p'+i,styleId:'prov',position:new TMap.LatLng(p.lat,p.lng)}));
+  const geomsO=caseOverseas.map((p,i)=>({id:'o'+i,styleId:'over',position:new TMap.LatLng(p.lat,p.lng)}));
+  new TMap.MultiMarker({
+    map,
+    styles:{
+      prov:new TMap.MarkerStyle({width:14,height:14,src:dotSVG('#0E499E'),anchor:{x:7,y:7}}),
+      over:new TMap.MarkerStyle({width:18,height:18,src:dotSVG('#E08C1F'),anchor:{x:9,y:9}})
+    },
+    geometries:geomsP.concat(geomsO)
+  });
+}
+/* 仅当案例分布面板可见时才初始化地图，节省资源 */
+const casesSection=document.getElementById('cases');
+const caseIO=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){initCaseMap();caseIO.disconnect();}});
+},{threshold:.1});
+caseIO.observe(casesSection);
+
+let cur=0;
+function goSection(dir){cur=Math.max(0,Math.min(sections.length-1,cur+dir));sections[cur].scrollIntoView({behavior:'smooth'});}
+window.addEventListener('keydown',e=>{
+  if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();goSection(1);}
+  if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();goSection(-1);}
+});
+window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingClientRect().top<=window.innerHeight*0.4)cur=i;});},{passive:true});
+</script>
+</body>
+</html>
