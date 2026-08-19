@@ -525,6 +525,7 @@
   transition:width .8s cubic-bezier(.25,1,.5,1);
 }
 .rp-note{font-size:12px;color:var(--steel);line-height:1.6}
+.rp-disclaimer{font-size:11px;color:#8A9BB2;font-style:italic;line-height:1.65;margin:14px 0 0;padding-top:12px;border-top:1px dashed rgba(14,73,158,.12)}
 
 /* info 联系方式（保留） */
 .rp-card .info{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
@@ -1507,7 +1508,7 @@
 
       <div class="rp-hero">
         <div class="rp-num" id="roiSavings">--</div>
-        <div class="rp-unit" data-i18n="t498">万元 / 美元/年</div>
+        <div class="rp-unit" data-i18n="t498">万元/年</div>
       </div>
       <div class="rp-hero-label" data-i18n="t497">改用畅庆设备一年省下</div>
 
@@ -1528,6 +1529,8 @@
 
       <div class="rp-bar"><div class="rp-bar-fill" id="roiBar"></div></div>
       <div class="rp-note" id="roiNote" data-i18n="t496">请输入湿料量与含水率</div>
+
+      <p class="rp-disclaimer" data-i18n="t565">根据您提供的信息初步计算，仅供参考；实际结果需经过深入评估与实际测算。</p>
 
       <div class="info">
         <p data-i18n="t475"><b>官网：</b>www.cqhbtc.com</p>
@@ -2054,6 +2057,9 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
   function formatNumber(v){
     return formatNum(v);
   }
+  // ROI 大数字 / 动态注释按当前语言切换（zh: 万元 / en: USD，约 1 USD ≈ 7 CNY 粗略换算）
+  const isEN = ()=> document.documentElement.lang === 'en';
+  const usdApprox = (yuan)=> Math.round(yuan * 0.143); // 1 USD ≈ 7 CNY
   function compute(){
     const W = parseFloat(document.getElementById('inWet')?.value || 0);
     const wet = parseFloat(slWet?.value||80)/100;
@@ -2076,8 +2082,9 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
     const payback = (W>0 && total>0) ? (600000 / Math.max(total,1)) : 0;
     const weightRed = W>0 ? Math.round(redT/W*100) : 0;
 
-    // 数字动画
-    animateTo(document.getElementById('roiSavings'), total/10000, 700); // 万
+    // 数字动画（按语言换算：zh=万元 / en=USD）
+    const heroTarget = isEN() ? usdApprox(total) : total/10000;
+    animateTo(document.getElementById('roiSavings'), heroTarget, 700);
     document.getElementById('roiKw').textContent = (kwPerTon>0?kwPerTon:'--') + (kwPerTon>0?' kWh':'');
     document.getElementById('roiPayback').textContent = (payback>0?payback.toFixed(1):'--') + (payback>0?' 年':'');
     document.getElementById('roiWeight').textContent = (weightRed>0?weightRed:'--') + (weightRed>0?'%':'');
@@ -2085,13 +2092,21 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
 
     if(note){
       if(W>0){
-        note.textContent = '≈ 改用畅庆设备一年省下约 '+ formatNum(total/10000) + ' 万元 / 美元';
+        if(isEN()){
+          note.textContent = '≈ Switching to Charin saves about $' + usdApprox(total).toLocaleString() + ' per year';
+        } else {
+          note.textContent = '≈ 改用畅庆设备一年省下约 '+ formatNum(total/10000) + ' 万元';
+        }
       } else {
-        note.textContent = '请输入湿料量与含水率（含水率已在滑动）';
+        note.textContent = isEN() ? 'Enter wet throughput & moisture to see ROI' : '请输入湿料量与含水率（含水率已在滑动）';
       }
     }
   }
   compute();
+
+  // 语言切换时重算 ROI（lang 属性变化即触发）
+  new MutationObserver(()=>compute())
+    .observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
 
   /* 文件上传 */
   const dz = document.getElementById('dropZone');
