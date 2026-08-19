@@ -256,7 +256,8 @@
   .accounts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}
   .acct{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .4s cubic-bezier(.16,1,.3,1)}
   .acct .q{font-size:15px;color:var(--primary);font-weight:700;padding-bottom:14px;border-bottom:1px dashed var(--line);margin-bottom:16px;line-height:1.55}
-  .acct .q::before{content:"客户问：";color:var(--accent);margin-right:2px}
+  html[lang="zh"] .acct .q::before{content:"客户问：";color:var(--accent);margin-right:2px}
+  html[lang="en"] .acct .q::before{content:"Client asks: ";color:var(--accent);margin-right:2px}
   .acct h4{color:var(--steel);font-size:12px;letter-spacing:2px;margin-bottom:8px;font-weight:700}
   .acct .calc{background:var(--bg-soft);padding:14px 16px;border-radius:10px;font-size:13px;color:var(--steel);margin-bottom:14px;line-height:1.85}
   .acct .calc b{color:var(--primary);font-weight:700}
@@ -1908,8 +1909,15 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
     }
     requestAnimationFrame(step);
   }
-  // 数字格式化（万元 / 亿元）
-  function fmtWan(yuan){
+  // 数字格式化（zh：元/万元/亿元；en：$ K / M）。语义相同，金额视角按当前语言切换。
+  const isEN = ()=> document.documentElement.lang === 'en';
+  function fmtMoney(yuan){
+    if(isEN()){
+      const v = Math.abs(yuan);
+      if(v>=1e6) return '$' + (yuan/1e6).toFixed(2) + ' M';
+      if(v>=1e3) return '$' + (yuan/1e3).toFixed(yuan>=1e5?1:2).replace(/\.?0+$/,'') + ' K';
+      return '$' + Math.round(yuan).toLocaleString('en-US');
+    }
     if(yuan>=1e8) return (yuan/1e8).toFixed(2)+' 亿元';
     if(yuan>=1e4) return (yuan/1e4).toFixed(yuan>=1e6?1:2)+' 万元';
     return Math.round(yuan).toLocaleString('zh-CN')+' 元';
@@ -1922,14 +1930,17 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
     const newYuan=tons*NEW_KWH*price;
     const saveYuan=oldYuan-newYuan;
     const pct=oldYuan>0?(saveYuan/oldYuan*100):0;
-    tween(prev.old,oldYuan,420,v=>oldEl.textContent=fmtWan(v));
-    tween(prev.new,newYuan,420,v=>newEl.textContent=fmtWan(v));
-    tween(prev.save,saveYuan,520,v=>saveEl.textContent=fmtWan(v));
+    tween(prev.old,oldYuan,420,v=>oldEl.textContent=fmtMoney(v));
+    tween(prev.new,newYuan,420,v=>newEl.textContent=fmtMoney(v));
+    tween(prev.save,saveYuan,520,v=>saveEl.textContent=fmtMoney(v));
     tween(prev.pct,pct,520,v=>pctEl.textContent=v.toFixed(1)+'%');
     prev={old:oldYuan,new:newYuan,save:saveYuan,pct};
   }
   ['input','change'].forEach(ev=>{tonsEl.addEventListener(ev,recalc);priceEl.addEventListener(ev,recalc);});
   recalc();
+  // 语言切换时重新计算一次，让单位立刻变成 USD/$
+  new MutationObserver(()=>recalc())
+    .observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
 
 /* ===== Contact: 3-step Wizard + Live ROI ===== */
@@ -2071,7 +2082,8 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
     // 减重：去除的水分
     let redT = 0;
     if(W>0){ redT = W*((wet-dry)/(1-dry)); } // 仅算水减重
-    document.getElementById('inReduction').value = redT? (redT.toFixed(0)+' 吨/年'):'';
+    const tonUnit = isEN() ? ' t/yr' : ' 吨/年';
+    document.getElementById('inReduction').value = redT? (redT.toFixed(0)+ tonUnit):'';
 
     // ROI
     const eSaved = 500*W - 70*W; // kWh
@@ -2086,7 +2098,8 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
     const heroTarget = isEN() ? usdApprox(total) : total/10000;
     animateTo(document.getElementById('roiSavings'), heroTarget, 700);
     document.getElementById('roiKw').textContent = (kwPerTon>0?kwPerTon:'--') + (kwPerTon>0?' kWh':'');
-    document.getElementById('roiPayback').textContent = (payback>0?payback.toFixed(1):'--') + (payback>0?' 年':'');
+    const yrUnit = isEN() ? ' yrs' : ' 年';
+    document.getElementById('roiPayback').textContent = (payback>0?payback.toFixed(1):'--') + (payback>0?yrUnit:'');
     document.getElementById('roiWeight').textContent = (weightRed>0?weightRed:'--') + (weightRed>0?'%':'');
     document.getElementById('roiBar').style.width = (W>0 ? Math.min(100, (total/10000/8)*100) : 0) + '%';
 
