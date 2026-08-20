@@ -50,13 +50,17 @@
   .nav-links{display:flex;gap:24px;margin-left:auto}
   .nav-links a{color:var(--steel);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
   .nav-links a:hover,.nav-links a.active{color:var(--accent)}
-  .nav-cta{background:var(--primary);color:#fff !important;padding:9px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 12px rgba(14,73,158,.22)}
+  .nav-cta{background:var(--primary);color:#fff !important;padding:9px 18px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 12px rgba(14,73,158,.22);white-space:nowrap;flex-shrink:0}
   .nav-cta:hover{background:var(--primary-2);transform:translateY(-1px);box-shadow:0 6px 16px rgba(14,73,158,.32)}
   .cover-cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
   .btn.ghost{background:#fff;border:2px solid var(--primary);color:var(--primary);padding:10px 22px;border-radius:8px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .15s}
   .btn.ghost:hover{background:var(--primary);color:#fff;transform:translateY(-1px)}
   /* cover 屏底部核心数据条 */
   @media(max-width:780px){.nav-cta{padding:8px 14px;font-size:13px}.nav-links{gap:14px}}
+@media(max-width:880px){header.nav{padding:0 14px;gap:10px}}
+/* mobile-only <br>: 默认隐藏，移动端才显示，避免桌面端出现多余空行 */
+br.mbr{display:none}
+@media(max-width:767px){br.mbr{display:inline}#cover h1{font-size:clamp(28px,8.4vw,42px);line-height:1.18;letter-spacing:0}#cover h1 br{display:inline}}
   .dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px}
   .dots button{width:11px;height:11px;border-radius:50%;border:2px solid var(--steel);background:transparent;cursor:pointer;padding:0;transition:all .25s}
   .dots button.active{background:var(--accent);border-color:var(--accent);transform:scale(1.25)}
@@ -816,7 +820,8 @@
 @media(max-width:880px){
   /* 右侧 16 个大圆点改为细轨道（解决“点点全在右侧、滚动不便”） */
   .dots{display:none}
-  .nav-cur{display:block;flex:1;min-width:0;text-align:center;font-size:14px;font-weight:700;color:var(--primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}
+  /* 顶部 nav-cur 在移动端隐藏：左上角保持 LOGO 即可（用户要求） */
+  .nav-cur{display:none}
   .nav-burger{display:flex;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;border:none;background:transparent;cursor:pointer;padding:0;margin-left:4px}
   .nav-burger span{display:block;height:2px;width:22px;background:var(--primary);border-radius:2px;transition:.3s}
   header.nav.nav--dark .nav-cur{color:#fff}
@@ -872,7 +877,7 @@
 <div class="cover-brand" data-i18n="t005">
 <span>畅庆智能 · 污泥低温干化整体方案</span>
 </div>
-<h1 data-i18n="t006">让客户<span class="accent">不再头痛</span>，<br/>不必<span class="accent">心疼</span></h1>
+<h1 data-i18n="t006">让客户<br class="mbr"/><span class="accent">不再头痛</span>，<br/>不必<span class="accent">心疼</span></h1>
 <p class="subs" data-i18n="t007">上海畅庆新工程科技有限公司 · 山东畅庆智能装备科技有限公司 · 苏州畅庆智能科技有限公司</p>
 <div class="subcos">
 <span class="chip" data-i18n="t008">热泵干化</span><span class="chip" data-i18n="t009">余热干化</span><span class="chip" data-i18n="t010">MVR蒸发</span>
