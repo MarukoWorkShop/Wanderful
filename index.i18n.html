@@ -832,15 +832,7 @@ br.mbr{display:none}
   .nav-rail-knob{position:absolute;left:50%;width:11px;height:11px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(224,140,31,.18)}
 }
 
-/* ===== 方案 B4：密集卡片屏在手机上改为横向滑动（≤767px） ===== */
-@media(max-width:767px){
-  .accounts{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:18px;padding:2px 14px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x}
-  .accounts::-webkit-scrollbar{display:none}
-  .accounts .pain{flex:0 0 82%;min-width:82%;scroll-snap-align:start}
-  .adv-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:20px;padding:2px 14px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x}
-  .adv-grid::-webkit-scrollbar{display:none}
-  .adv-grid .adv{flex:0 0 82%;min-width:82%;scroll-snap-align:start}
-}
+/* 方案 B4 已撤回：手机上 .accounts / .adv-grid 改回上下滚动单列（用户反馈横滑卡片太窄、且横纵手势抢方向）。桌面端与 880px 处的纵向单列规则保持原状。 */
 
 </style>
 <!-- 地图合规：腾讯地图 GL JS。部署前请填入你自己的 key 与 SK（腾讯位置服务控制台免费申请） -->
