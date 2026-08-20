@@ -771,6 +771,40 @@ br.mbr{display:none}
 
 .wiz-foot-note{margin-top:14px;font-size:12px;color:#8A9BB2;text-align:right}
 
+/* === Wizard · Step 1 用户信息卡 === */
+.user-info{
+  margin:6px 0 20px;padding:16px 18px 4px;
+  border:1px dashed rgba(14,73,158,.22);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(14,73,158,.035),rgba(14,73,158,.01));
+  position:relative;
+}
+.user-info::before{
+  content:"";position:absolute;left:-1px;top:14px;bottom:14px;width:3px;
+  background:linear-gradient(180deg,var(--primary),var(--accent));
+  border-radius:0 3px 3px 0;
+}
+.user-info-head{
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin:0 0 12px;
+}
+.user-info-title{
+  font-size:13px;font-weight:700;color:var(--primary);
+  letter-spacing:.02em;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.user-info-hint{font-size:12px;color:#7a8aa3}
+.user-info .row:last-child{margin-bottom:8px}
+.user-info input[type="text"]{
+  width:100%;padding:11px 14px;font:inherit;font-size:14px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;
+  color:var(--ink);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.user-info input[type="text"]:focus{
+  border-color:rgba(14,73,158,.45);
+  box-shadow:0 0 0 4px rgba(14,73,158,.08);
+}
+
 /* responsive */
 @media(max-width:1023px){
   .contact-layout{grid-template-columns:1fr;gap:24px}
@@ -798,6 +832,8 @@ br.mbr{display:none}
   .wiz-actions{flex-direction:column-reverse}
   .wiz-back,.wiz-next{width:100%;padding:13px}
   .wiz-foot-note{text-align:center}
+  .user-info{padding:14px 14px 2px;margin:4px 0 16px}
+  .user-info-hint{flex-basis:100%;margin-top:2px}
 }
 
 /* ===== 移动端导航增强（方案 B）：仅 ≤880px 生效 ===== */
@@ -1610,6 +1646,39 @@ br.mbr{display:none}
 
         <!-- STEP 1 -->
         <section class="wiz-panel active" data-panel="1">
+          <div class="user-info">
+            <div class="user-info-head">
+              <span class="user-info-title" data-i18n="t567">客户信息</span>
+              <span class="user-info-hint" data-i18n="t573">（选填，仅用于为您定制方案后联系）</span>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label data-i18n="t568">客户名称</label>
+                <input type="text" name="custName" data-ph-zh="例如：XX 市第三污水处理厂" data-ph-en="e.g. Suzhou No.3 WWTP" autocomplete="organization" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label data-i18n="t569">业主单位</label>
+                <input type="text" name="ownerUnit" data-ph-zh="例如：XX 集团 / 公司全称" data-ph-en="e.g. ABC Group Co., Ltd." autocomplete="organization" />
+              </div>
+              <div class="field">
+                <label data-i18n="t570">所属行业</label>
+                <input type="text" name="industry" data-ph-zh="例如：市政 / 制药 / 化工" data-ph-en="e.g. Municipal / Pharma / Chemical" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label data-i18n="t571">联络人 / 联系方式</label>
+                <input type="text" name="contact" data-ph-zh="姓名 + 电话（或微信 / 邮箱）" data-ph-en="Name + Phone (or WeChat / Email)" autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label data-i18n="t572">项目地点</label>
+                <input type="text" name="site" data-ph-zh="例如：江苏 · 苏州" data-ph-en="e.g. Jiangsu, China" autocomplete="address-level2" />
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="field">
               <label data-i18n="t510">物料来源</label>
@@ -2310,6 +2379,21 @@ window.addEventListener('scroll',()=>{sections.forEach((s,i)=>{if(s.getBoundingC
   new MutationObserver(() => renderLabels()).observe(root, { attributes: true, attributeFilter: ['lang'] });
   onScroll();
   renderLabels();
+})();
+
+/* === Wizard · 用户信息卡 placeholder 随语言切换（data-ph-zh / data-ph-en） === */
+(function(){
+  const root = document.documentElement;
+  const inputs = document.querySelectorAll('.user-info [data-ph-zh][data-ph-en]');
+  if (!inputs.length) return;
+  const apply = () => {
+    const isEN = (root.getAttribute('lang') || 'zh') === 'en';
+    inputs.forEach(el => {
+      el.placeholder = isEN ? el.getAttribute('data-ph-en') : el.getAttribute('data-ph-zh');
+    });
+  };
+  apply();
+  new MutationObserver(apply).observe(root, { attributes: true, attributeFilter: ['lang'] });
 })();
 </script>
 </body>
